@@ -47,11 +47,10 @@ def all_stickers(bot, update):
 
     # Convert sticker.webp to jpg
     sticker_img = Image.open("sticker.webp").convert("RGB")
-    sticker_img.save("sticker.jpg","jpeg")
+    sticker_img.save("sticker.png","png")
 
     # Reply with sticker
-    # update.message.reply_sticker(sticker=file_id)
-    update.message.reply_photo(photo=open('sticker.jpg', 'rb'))
+    update.message.reply_photo(photo=open('sticker.png', 'rb'))
 
 
 def error(bot, update, error):
