@@ -17,4 +17,4 @@ This is a Telegram Bot based on python-telegram-bot. You send it a sticker and i
 
 ## TODO:
 
-- Handle transperancy
+- Add option to send as document or picture 
