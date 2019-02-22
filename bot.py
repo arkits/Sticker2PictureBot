@@ -4,12 +4,12 @@ Archit Khode
 """
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from PIL import Image
 import logging
 import config
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
@@ -45,8 +45,13 @@ def all_stickers(bot, update):
     sticker_file = bot.get_file(file_id)
     sticker_file.download('sticker.webp')
 
+    # Convert sticker.webp to jpg
+    sticker_img = Image.open("sticker.webp").convert("RGB")
+    sticker_img.save("sticker.jpg","jpeg")
+
     # Reply with sticker
-    update.message.reply_sticker(sticker=file_id)
+    # update.message.reply_sticker(sticker=file_id)
+    update.message.reply_photo(photo=open('sticker.jpg', 'rb'))
 
 
 def error(bot, update, error):
