@@ -52,19 +52,18 @@ def all_stickers(bot, update):
 
     # Convert sticker.webp to jpg
     sticker_img = Image.open("sticker.webp")
-    sticker_img.save("sticker.png","png")
+    sticker_img.save("sticker.png","PNG")
 
     # Reply with sticker
     logger.info('Replied sticker.png')
     logger.info('--- Took %s seconds ---' % (time.time() - start_time))
     logger.info(' ')
-    update.message.reply_photo(photo=open('sticker.png', 'rb'), timeout=1000)
 
+    update.message.reply_document(document=open('sticker.png', 'rb'), timeout=5000)
 
 def error(bot, update, error):
     # Log erros in update obj
     logger.warning('Update "%s" caused error "%s"', update, error)
-
 
 def main():
     # Start the bot...
