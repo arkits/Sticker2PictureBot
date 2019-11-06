@@ -1,1 +1,4 @@
-nohup python3 bot.py >/dev/null 2>&1 & 
+source .env/bin/activate
+pip -r requirements.txt
+cd src/
+nohup python bot.py > ../bot.log 2>&1 & 
