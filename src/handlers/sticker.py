@@ -8,6 +8,7 @@ from PIL import Image
 import logging
 import config
 import time
+import users_util
 
 # Enable logging
 logging.basicConfig(
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 def handle(bot, update):
+
     # Handle all stickers received
     start_time = time.time()
     logger.info('Received Sticker Message:')
@@ -36,8 +38,19 @@ def handle(bot, update):
     sticker_img.save("sticker.png", "PNG")
 
     # Reply with sticker
-    logger.info('Replied sticker.png')
+    logger.info('Converted sticker.png')
     logger.info('--- Took %s seconds ---' % (time.time() - start_time))
 
-    update.message.reply_document(
-        document=open('sticker.png', 'rb'), timeout=5000)
+    tg_id = update.message.from_user['id']
+
+    user = users_util.get_user(tg_id)
+
+    if user is None:
+        delivery_type = "image"
+    else:
+        delivery_type = user.delivery_perference
+
+    if delivery_type == "image":
+        update.message.reply_photo(photo=open('sticker.png', 'rb'), timeout=5000)
+    elif delivery_type == "document":
+        update.message.reply_document(document=open('sticker.png', 'rb'), timeout=5000)
